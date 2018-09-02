@@ -65,19 +65,26 @@ async function getDateData(dateString) {
   }
 }
 
+function parseTime(str) {
+  let hour = parseInt(str.slice(0,2));
+  let minute = parseInt(str.slice(3,5));
+  return [hour, minute];
+}
+
 function parseJson(obj) {
   return {
-    weekday: obj.,
-    hDay: 12,
-    gDay: 7,
-    hMonth: 4,
-    gMonth: 2,
-    Fajr: [0, 0],
-    Ishraq: [0, 0],
-    Duhr: [0, 0],
-    Asr: [0,0],
-    Maghrib: [0, 0],
-    Isha:[0, 0]
+    arWeekday: obj.data.date.hijri.weekday.ar,
+    enWeekday: obj.data.date.gregorian.weekday.en,
+    hDay: ParseInt(obj.data.date.hijri.day),
+    gDay: ParseInt(obj.data.date.gregorian.date),
+    hMonth: obj.data.date.hijri.month.number,
+    gMonth: obj.data.date.gregorian.month.number,
+    Fajr:   parseTime(obj.data.timings.Fajr),
+    Ishraq: parseTime(obj.data.timings.Sunrise),
+    Duhr:   parseTime(obj.data.timings.Dhuhr),
+    Asr:    parseTime(obj.data.timings.Asr),
+    Maghrib:parseTime(obj.data.timings.Maghrib),
+    Isha:   parseTime(obj.data.timings.Isha),
   }
 }
 
